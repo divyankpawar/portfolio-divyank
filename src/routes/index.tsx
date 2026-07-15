@@ -443,32 +443,42 @@ function Education() {
   return (
     <section id="education" className="border-b border-border bg-card/40">
       <div className="mx-auto max-w-7xl px-6 py-24">
-        <span className="section-label">
-          <span className="h-px w-8 bg-primary" /> Academics
-        </span>
-        <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
-          Educational <span className="text-primary">Background</span>
-        </h2>
+        <AnimatedSection>
+          <span className="section-label">
+            <span className="h-px w-8 bg-primary" /> Academics
+          </span>
+          <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+            Educational <span className="text-primary">Background</span>
+          </h2>
+        </AnimatedSection>
 
-        <div className="mt-14 grid md:grid-cols-2 gap-6">
+        <AnimatedStagger
+          className="mt-14 grid md:grid-cols-2 gap-6"
+          containerVariants={{
+            hidden: { opacity: 1 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+            },
+          }}
+        >
           {items.map((i) => (
-            <div
-              key={i.title}
-              className="flex gap-5 rounded-xl border border-border p-6 bg-card"
-            >
-              <div className="grid place-items-center h-14 w-14 shrink-0 rounded-lg bg-primary text-primary-foreground">
-                <GraduationCap className="h-7 w-7" />
-              </div>
-              <div>
-                <div className="text-xs uppercase tracking-widest text-primary font-semibold">
-                  {i.year}
+            <AnimatedItem key={i.title} variants={scaleUpVariants}>
+              <div className="flex gap-5 rounded-xl border border-border p-6 bg-card h-full hover-lift">
+                <div className="grid place-items-center h-14 w-14 shrink-0 rounded-lg bg-primary text-primary-foreground">
+                  <GraduationCap className="h-7 w-7" />
                 </div>
-                <h3 className="heading-xl text-xl mt-1">{i.title}</h3>
-                <p className="text-sm text-muted-foreground mt-1">{i.org}</p>
+                <div>
+                  <div className="text-xs uppercase tracking-widest text-primary font-semibold">
+                    {i.year}
+                  </div>
+                  <h3 className="heading-xl text-xl mt-1">{i.title}</h3>
+                  <p className="text-sm text-muted-foreground mt-1">{i.org}</p>
+                </div>
               </div>
-            </div>
+            </AnimatedItem>
           ))}
-        </div>
+        </AnimatedStagger>
       </div>
     </section>
   );

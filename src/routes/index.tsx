@@ -123,7 +123,7 @@ function Hero() {
             ["B.E.", "Mechanical Eng."],
             ["BPCL", "Inspection Intern"],
             ["CAD", "PTC Creo"],
-            ["3+", "Years Experience"],
+            ["1+", "Years Experience"],
           ].map(([k, v]) => (
             <div key={v} className="border-l-2 border-primary pl-4">
               <div className="heading-xl text-3xl">{k}</div>

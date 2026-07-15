@@ -200,34 +200,44 @@ function Services() {
   return (
     <section id="services" className="border-b border-border">
       <div className="mx-auto max-w-7xl px-6 py-24">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
-          <div>
-            <span className="section-label">
-              <span className="h-px w-8 bg-primary" /> What I Do
-            </span>
-            <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
-              Areas of <span className="text-primary">Expertise</span>
-            </h2>
-          </div>
-          <p className="max-w-md text-muted-foreground">
-            Combining field inspection experience with design engineering to keep
-            industrial systems running safely and efficiently.
-          </p>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden">
-          {items.map(({ icon: Icon, title, desc }) => (
-            <div
-              key={title}
-              className="bg-card p-8 group hover:bg-primary hover:text-primary-foreground transition-colors"
-            >
-              <Icon className="h-10 w-10 text-primary group-hover:text-primary-foreground" />
-              <h3 className="heading-xl mt-6 text-2xl">{title}</h3>
-              <p className="mt-3 text-sm text-muted-foreground group-hover:text-primary-foreground/80">
-                {desc}
-              </p>
+        <AnimatedSection>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+            <div>
+              <span className="section-label">
+                <span className="h-px w-8 bg-primary" /> What I Do
+              </span>
+              <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+                Areas of <span className="text-primary">Expertise</span>
+              </h2>
             </div>
+            <p className="max-w-md text-muted-foreground">
+              Combining field inspection experience with design engineering to keep
+              industrial systems running safely and efficiently.
+            </p>
+          </div>
+        </AnimatedSection>
+        <AnimatedStagger
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden"
+          containerVariants={{
+            hidden: { opacity: 1 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+            },
+          }}
+        >
+          {items.map(({ icon: Icon, title, desc }) => (
+            <AnimatedItem key={title}>
+              <div className="bg-card p-8 h-full group hover:bg-primary hover:text-primary-foreground transition-colors hover-lift">
+                <Icon className="h-10 w-10 text-primary group-hover:text-primary-foreground transition-transform duration-300 group-hover:scale-110" />
+                <h3 className="heading-xl mt-6 text-2xl">{title}</h3>
+                <p className="mt-3 text-sm text-muted-foreground group-hover:text-primary-foreground/80">
+                  {desc}
+                </p>
+              </div>
+            </AnimatedItem>
           ))}
-        </div>
+        </AnimatedStagger>
       </div>
     </section>
   );

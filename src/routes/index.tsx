@@ -495,28 +495,38 @@ function Extracurricular() {
   return (
     <section className="border-b border-border">
       <div className="mx-auto max-w-7xl px-6 py-24">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
-          <div>
-            <span className="section-label">
-              <span className="h-px w-8 bg-primary" /> Beyond Work
-            </span>
-            <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
-              Leadership & <span className="text-primary">Sport</span>
-            </h2>
-          </div>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {items.map((i) => (
-            <div
-              key={i.title}
-              className="rounded-xl border border-border p-6 hover:bg-card transition-colors"
-            >
-              <Trophy className="h-6 w-6 text-primary" />
-              <h3 className="heading-xl text-xl mt-4">{i.title}</h3>
-              <p className="text-sm text-muted-foreground mt-1">{i.desc}</p>
+        <AnimatedSection>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+            <div>
+              <span className="section-label">
+                <span className="h-px w-8 bg-primary" /> Beyond Work
+              </span>
+              <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+                Leadership & <span className="text-primary">Sport</span>
+              </h2>
             </div>
+          </div>
+        </AnimatedSection>
+        <AnimatedStagger
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          containerVariants={{
+            hidden: { opacity: 1 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+            },
+          }}
+        >
+          {items.map((i) => (
+            <AnimatedItem key={i.title} variants={scaleUpVariants}>
+              <div className="rounded-xl border border-border p-6 hover:bg-card transition-colors hover-lift h-full">
+                <Trophy className="h-6 w-6 text-primary transition-transform duration-300 group-hover:scale-110" />
+                <h3 className="heading-xl text-xl mt-4">{i.title}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{i.desc}</p>
+              </div>
+            </AnimatedItem>
           ))}
-        </div>
+        </AnimatedStagger>
       </div>
     </section>
   );

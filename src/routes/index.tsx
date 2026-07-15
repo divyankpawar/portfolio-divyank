@@ -607,9 +607,9 @@ function ContactRow({
   href?: string;
 }) {
   const content = (
-    <div className="flex items-center gap-4 rounded-xl bg-background/10 hover:bg-background/20 transition p-4">
+    <div className="flex items-center gap-4 rounded-xl bg-background/10 hover:bg-background/20 transition p-4 group hover-lift">
       <span className="grid place-items-center h-11 w-11 rounded-lg bg-background text-primary shrink-0">
-        <Icon className="h-5 w-5" />
+        <Icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
       </span>
       <div className="min-w-0">
         <div className="text-[10px] font-semibold uppercase tracking-[0.25em] opacity-70">

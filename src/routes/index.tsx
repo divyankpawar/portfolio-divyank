@@ -103,51 +103,72 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-background/20" />
       </div>
       <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
-        <span className="section-label">
-          <span className="h-px w-8 bg-primary" />
-          Mechanical Engineer · Portfolio 2026
-        </span>
-        <h1 className="heading-xl mt-6 text-5xl sm:text-7xl md:text-8xl max-w-4xl">
-          Engineering Precision, <span className="text-primary">Built to Last.</span>
-        </h1>
-        <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-          I'm <strong className="text-foreground">Divyank K Pawar</strong> — a mechanical
-          engineer focused on inspection, CAD design, and industrial systems. Currently
-          interning in the Inspection Department at Bharat Petroleum Corporation Limited.
-        </p>
-        <div className="mt-10 flex flex-wrap items-center gap-4">
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-3 rounded-full bg-primary pl-6 pr-2 py-2 text-sm font-semibold uppercase tracking-wider text-primary-foreground hover:opacity-90"
-          >
-            Get in touch
-            <span className="grid place-items-center h-10 w-10 rounded-full bg-background text-primary">
-              <ArrowRight className="h-4 w-4" />
+        <AnimatedHero>
+          <AnimatedItem>
+            <span className="section-label">
+              <span className="h-px w-8 bg-primary" />
+              Mechanical Engineer · Portfolio 2026
             </span>
-          </a>
-          <a
-            href="#experience"
-            className="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold uppercase tracking-wider text-foreground hover:text-primary transition"
-          >
-            View Experience <ArrowRight className="h-4 w-4" />
-          </a>
-        </div>
-
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl">
-          {[
-            ["B.E.", "Mechanical Eng."],
-            ["BPCL", "Inspection Intern"],
-            ["CAD", "PTC Creo"],
-            ["1+", "Years Experience"],
-          ].map(([k, v]) => (
-            <div key={v} className="border-l-2 border-primary pl-4">
-              <div className="heading-xl text-3xl">{k}</div>
-              <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">
-                {v}
-              </div>
+          </AnimatedItem>
+          <AnimatedItem>
+            <h1 className="heading-xl mt-6 text-5xl sm:text-7xl md:text-8xl max-w-4xl">
+              Engineering Precision, <span className="text-primary">Built to Last.</span>
+            </h1>
+          </AnimatedItem>
+          <AnimatedItem>
+            <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+              I'm <strong className="text-foreground">Divyank K Pawar</strong> — a mechanical
+              engineer focused on inspection, CAD design, and industrial systems. Currently
+              interning in the Inspection Department at Bharat Petroleum Corporation Limited.
+            </p>
+          </AnimatedItem>
+          <AnimatedItem>
+            <div className="mt-10 flex flex-wrap items-center gap-4">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-3 rounded-full bg-primary pl-6 pr-2 py-2 text-sm font-semibold uppercase tracking-wider text-primary-foreground hover:opacity-90 transition hover-lift"
+              >
+                Get in touch
+                <span className="grid place-items-center h-10 w-10 rounded-full bg-background text-primary transition-transform duration-300 group-hover:translate-x-1">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </a>
+              <a
+                href="#experience"
+                className="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold uppercase tracking-wider text-foreground hover:text-primary transition mechanical-hover"
+              >
+                View Experience <ArrowRight className="h-4 w-4" />
+              </a>
             </div>
-          ))}
-        </div>
+          </AnimatedItem>
+
+          <AnimatedItem className="mt-20">
+            <AnimatedStagger
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl"
+              containerVariants={{
+                hidden: { opacity: 1 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.08, delayChildren: 0.4 },
+                },
+              }}
+            >
+              {[
+                ["B.E.", "Mechanical Eng."],
+                ["BPCL", "Inspection Intern"],
+                ["CAD", "PTC Creo"],
+                ["1+", "Years Experience"],
+              ].map(([k, v]) => (
+                <AnimatedItem key={v} className="border-l-2 border-primary pl-4">
+                  <div className="heading-xl text-3xl">{k}</div>
+                  <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">
+                    {v}
+                  </div>
+                </AnimatedItem>
+              ))}
+            </AnimatedStagger>
+          </AnimatedItem>
+        </AnimatedHero>
       </div>
     </section>
   );

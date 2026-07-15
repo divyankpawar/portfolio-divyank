@@ -54,10 +54,15 @@ function Nav() {
     { href: "#contact", label: "Contact" },
   ];
   return (
-    <header className="sticky top-0 z-50 bg-background/85 backdrop-blur border-b border-border">
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="sticky top-0 z-50 bg-background/85 backdrop-blur border-b border-border"
+    >
       <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
-        <a href="#home" className="flex items-center gap-2">
-          <span className="grid place-items-center h-9 w-9 rounded-md bg-primary text-primary-foreground">
+        <a href="#home" className="flex items-center gap-2 group">
+          <span className="grid place-items-center h-9 w-9 rounded-md bg-primary text-primary-foreground transition-transform duration-300 group-hover:rotate-90">
             <Cog className="h-5 w-5" />
           </span>
           <span className="heading-xl text-xl tracking-widest">DIVYANK.P</span>
@@ -67,7 +72,7 @@ function Nav() {
             <a
               key={i.href}
               href={i.href}
-              className="px-4 py-2 text-sm font-medium uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+              className="px-4 py-2 text-sm font-medium uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors mechanical-hover"
             >
               {i.label}
             </a>
@@ -75,12 +80,12 @@ function Nav() {
         </nav>
         <a
           href="#contact"
-          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-primary-foreground hover:opacity-90 transition"
+          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-primary-foreground hover:opacity-90 transition hover-lift"
         >
           Hire Me
         </a>
       </div>
-    </header>
+    </motion.header>
   );
 }
 

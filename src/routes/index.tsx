@@ -536,41 +536,60 @@ function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 py-24">
-        <div className="rounded-2xl bg-primary text-primary-foreground p-10 md:p-16 grid md:grid-cols-[1.2fr_1fr] gap-10 items-center">
-          <div>
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em]">
-              <span className="h-px w-8 bg-primary-foreground" /> Let's Connect
-            </span>
-            <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
-              Looking for a mechanical engineer who ships?
-            </h2>
-            <p className="mt-4 text-primary-foreground/80 max-w-lg">
-              Open to full-time roles, project collaborations, and industrial engineering
-              opportunities across inspection, design, and maintenance.
-            </p>
+        <AnimatedSection variants={scaleUpVariants}>
+          <div className="rounded-2xl bg-primary text-primary-foreground p-10 md:p-16 grid md:grid-cols-[1.2fr_1fr] gap-10 items-center">
+            <div>
+              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em]">
+                <span className="h-px w-8 bg-primary-foreground" /> Let's Connect
+              </span>
+              <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+                Looking for a mechanical engineer who ships?
+              </h2>
+              <p className="mt-4 text-primary-foreground/80 max-w-lg">
+                Open to full-time roles, project collaborations, and industrial engineering
+                opportunities across inspection, design, and maintenance.
+              </p>
+            </div>
+            <AnimatedStagger
+              className="space-y-3"
+              containerVariants={{
+                hidden: { opacity: 1 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+                },
+              }}
+            >
+              <AnimatedItem>
+                <ContactRow
+                  icon={Phone}
+                  label="Phone"
+                  value="+91 93268 10438"
+                  href="tel:+919326810438"
+                />
+              </AnimatedItem>
+              <AnimatedItem>
+                <ContactRow
+                  icon={Mail}
+                  label="Email"
+                  value="divyankpawar71@gmail.com"
+                  href="mailto:divyankpawar71@gmail.com"
+                />
+              </AnimatedItem>
+              <AnimatedItem>
+                <ContactRow
+                  icon={Linkedin}
+                  label="LinkedIn"
+                  value="divyank-pawar"
+                  href="https://www.linkedin.com/in/divyank-pawar-551879250"
+                />
+              </AnimatedItem>
+              <AnimatedItem>
+                <ContactRow icon={MapPin} label="Based in" value="Navi Mumbai, India" />
+              </AnimatedItem>
+            </AnimatedStagger>
           </div>
-          <div className="space-y-3">
-            <ContactRow
-              icon={Phone}
-              label="Phone"
-              value="+91 93268 10438"
-              href="tel:+919326810438"
-            />
-            <ContactRow
-              icon={Mail}
-              label="Email"
-              value="divyankpawar71@gmail.com"
-              href="mailto:divyankpawar71@gmail.com"
-            />
-            <ContactRow
-              icon={Linkedin}
-              label="LinkedIn"
-              value="divyank-pawar"
-              href="https://www.linkedin.com/in/divyank-pawar-551879250"
-            />
-            <ContactRow icon={MapPin} label="Based in" value="Navi Mumbai, India" />
-          </div>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );

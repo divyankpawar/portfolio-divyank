@@ -1,5 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import heroImg from "@/assets/hero.jpg";
+import {
+  AnimatedHero,
+  AnimatedItem,
+  AnimatedSection,
+  AnimatedStagger,
+  slideInLeftVariants,
+  slideInRightVariants,
+  scaleUpVariants,
+} from "@/components/animations";
 import {
   Wrench,
   Gauge,

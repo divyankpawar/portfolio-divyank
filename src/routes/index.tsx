@@ -368,40 +368,50 @@ function Experience() {
   return (
     <section id="experience" className="border-b border-border">
       <div className="mx-auto max-w-7xl px-6 py-24">
-        <span className="section-label">
-          <span className="h-px w-8 bg-primary" /> Experience
-        </span>
-        <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl max-w-3xl">
-          Where I've <span className="text-primary">worked</span>.
-        </h2>
+        <AnimatedSection>
+          <span className="section-label">
+            <span className="h-px w-8 bg-primary" /> Experience
+          </span>
+          <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl max-w-3xl">
+            Where I've <span className="text-primary">worked</span>.
+          </h2>
+        </AnimatedSection>
 
-        <div className="mt-14 space-y-6">
+        <AnimatedStagger
+          className="mt-14 space-y-6"
+          containerVariants={{
+            hidden: { opacity: 1 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+            },
+          }}
+        >
           {jobs.map((j) => (
-            <article
-              key={j.role}
-              className="grid md:grid-cols-[220px_1fr] gap-6 border border-border rounded-xl p-8 bg-card hover:border-primary transition-colors"
-            >
-              <div>
-                <div className="text-xs uppercase tracking-widest text-primary font-semibold">
-                  {j.period}
+            <AnimatedItem key={j.role}>
+              <article className="grid md:grid-cols-[220px_1fr] gap-6 border border-border rounded-xl p-8 bg-card hover:border-primary transition-colors hover-lift">
+                <div>
+                  <div className="text-xs uppercase tracking-widest text-primary font-semibold">
+                    {j.period}
+                  </div>
+                  <Briefcase className="h-8 w-8 mt-4 text-muted-foreground" />
                 </div>
-                <Briefcase className="h-8 w-8 mt-4 text-muted-foreground" />
-              </div>
-              <div>
-                <h3 className="heading-xl text-2xl md:text-3xl">{j.role}</h3>
-                <div className="text-muted-foreground mt-1">{j.org}</div>
-                <ul className="mt-5 space-y-2">
-                  {j.points.map((p) => (
-                    <li key={p} className="flex gap-3 text-sm text-muted-foreground">
-                      <span className="mt-2 h-1.5 w-1.5 bg-primary rounded-full shrink-0" />
-                      <span>{p}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </article>
+                <div>
+                  <h3 className="heading-xl text-2xl md:text-3xl">{j.role}</h3>
+                  <div className="text-muted-foreground mt-1">{j.org}</div>
+                  <ul className="mt-5 space-y-2">
+                    {j.points.map((p) => (
+                      <li key={p} className="flex gap-3 text-sm text-muted-foreground">
+                        <span className="mt-2 h-1.5 w-1.5 bg-primary rounded-full shrink-0" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            </AnimatedItem>
           ))}
-        </div>
+        </AnimatedStagger>
       </div>
     </section>
   );

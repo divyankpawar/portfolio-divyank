@@ -265,69 +265,77 @@ function About() {
   return (
     <section id="about" className="border-b border-border bg-card/40">
       <div className="mx-auto max-w-7xl px-6 py-24 grid lg:grid-cols-2 gap-16">
-        <div>
-          <span className="section-label">
-            <span className="h-px w-8 bg-primary" /> About
-          </span>
-          <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
-            Grounded in <span className="text-primary">theory</span>, sharpened on the{" "}
-            <span className="text-primary">shop floor.</span>
-          </h2>
-          <p className="mt-6 text-muted-foreground text-lg">
-            I graduated in Mechanical Engineering from Terna Engineering College, Navi
-            Mumbai. Over the past few years, I've moved from designing conveyor systems
-            for industry to inspecting critical machinery at one of India's largest oil
-            refineries — always focused on safety, reliability, and precision.
-          </p>
-
-          <div className="mt-10">
-            <h3 className="heading-xl text-xl text-primary tracking-widest">
-              Key Competencies
-            </h3>
-            <ul className="mt-4 grid sm:grid-cols-2 gap-y-2 gap-x-6 text-sm">
-              {traits.map((t) => (
-                <li key={t} className="flex items-start gap-2 text-muted-foreground">
-                  <span className="mt-1.5 h-1.5 w-1.5 bg-primary rounded-full shrink-0" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div>
-          <div className="rounded-xl border border-border bg-card p-8">
-            <h3 className="heading-xl text-2xl">Technical Toolkit</h3>
-            <p className="text-sm text-muted-foreground mt-2">
-              Tools and disciplines I use day to day.
+        <AnimatedSection variants={slideInLeftVariants}>
+          <div>
+            <span className="section-label">
+              <span className="h-px w-8 bg-primary" /> About
+            </span>
+            <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+              Grounded in <span className="text-primary">theory</span>, sharpened on the{" "}
+              <span className="text-primary">shop floor.</span>
+            </h2>
+            <p className="mt-6 text-muted-foreground text-lg">
+              I graduated in Mechanical Engineering from Terna Engineering College, Navi
+              Mumbai. Over the past few years, I've moved from designing conveyor systems
+              for industry to inspecting critical machinery at one of India's largest oil
+              refineries — always focused on safety, reliability, and precision.
             </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {skills.map((s) => (
-                <span
-                  key={s}
-                  className="px-4 py-2 rounded-full border border-border text-sm font-medium uppercase tracking-wider hover:border-primary hover:text-primary transition-colors"
-                >
-                  {s}
-                </span>
-              ))}
+
+            <div className="mt-10">
+              <h3 className="heading-xl text-xl text-primary tracking-widest">
+                Key Competencies
+              </h3>
+              <ul className="mt-4 grid sm:grid-cols-2 gap-y-2 gap-x-6 text-sm">
+                {traits.map((t) => (
+                  <li key={t} className="flex items-start gap-2 text-muted-foreground">
+                    <span className="mt-1.5 h-1.5 w-1.5 bg-primary rounded-full shrink-0" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
+        </AnimatedSection>
 
-          <div className="mt-6 rounded-xl border border-border bg-primary text-primary-foreground p-8">
-            <div className="flex items-start gap-4">
-              <Trophy className="h-8 w-8 shrink-0" />
-              <div>
-                <h3 className="heading-xl text-2xl">Beyond Engineering</h3>
-                <p className="mt-2 text-sm opacity-90">
-                  NCC 'B' Certificate holder, District-level Kho-Kho player, and
-                  currently competing in the Mumbai Super Division with the Mumbai
-                  Football Association. Vice-President of MESA at Terna Engineering
-                  College.
-                </p>
+        <AnimatedSection variants={slideInRightVariants}>
+          <div>
+            <div className="rounded-xl border border-border bg-card p-8 hover-lift">
+              <h3 className="heading-xl text-2xl">Technical Toolkit</h3>
+              <p className="text-sm text-muted-foreground mt-2">
+                Tools and disciplines I use day to day.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {skills.map((s) => (
+                  <span
+                    key={s}
+                    className="px-4 py-2 rounded-full border border-border text-sm font-medium uppercase tracking-wider hover:border-primary hover:text-primary transition-colors cursor-default"
+                  >
+                    {s}
+                  </span>
+                ))}
               </div>
             </div>
+
+            <motion.div
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-6 rounded-xl border border-border bg-primary text-primary-foreground p-8"
+            >
+              <div className="flex items-start gap-4">
+                <Trophy className="h-8 w-8 shrink-0" />
+                <div>
+                  <h3 className="heading-xl text-2xl">Beyond Engineering</h3>
+                  <p className="mt-2 text-sm opacity-90">
+                    NCC 'B' Certificate holder, District-level Kho-Kho player, and
+                    currently competing in the Mumbai Super Division with the Mumbai
+                    Football Association. Vice-President of MESA at Terna Engineering
+                    College.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );

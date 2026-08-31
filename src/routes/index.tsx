@@ -182,7 +182,10 @@ function Hero() {
         </div>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative mx-auto max-w-7xl px-6 py-28 md:py-40"
+      >
         <AnimatedHero>
           <AnimatedItem>
             <span className="section-label">

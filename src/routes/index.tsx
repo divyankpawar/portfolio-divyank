@@ -389,9 +389,12 @@ function About() {
               <span className="h-px w-8 bg-primary" /> About
             </span>
             <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
-              Grounded in <span className="text-primary">theory</span>, sharpened on the{" "}
-              <span className="text-primary">shop floor.</span>
+              <AnimatedWords
+                text="Grounded in theory, sharpened on the shop floor."
+                highlight={["theory,", "shop", "floor."]}
+              />
             </h2>
+            <RevealLine className="mt-6 max-w-sm" />
             <p className="mt-6 text-muted-foreground text-lg">
               I graduated in Mechanical Engineering from Terna Engineering College, Navi
               Mumbai. Over the past few years, I've moved from designing conveyor systems
@@ -403,36 +406,76 @@ function About() {
               <h3 className="heading-xl text-xl text-primary tracking-widest">
                 Key Competencies
               </h3>
-              <ul className="mt-4 grid sm:grid-cols-2 gap-y-2 gap-x-6 text-sm">
+              <motion.ul
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.07 } },
+                }}
+                className="mt-4 grid sm:grid-cols-2 gap-y-2 gap-x-6 text-sm"
+              >
                 {traits.map((t) => (
-                  <li key={t} className="flex items-start gap-2 text-muted-foreground">
+                  <motion.li
+                    key={t}
+                    variants={{
+                      hidden: { opacity: 0, x: -16 },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                      },
+                    }}
+                    whileHover={{ x: 4, color: "var(--color-foreground)" }}
+                    className="flex items-start gap-2 text-muted-foreground"
+                  >
                     <span className="mt-1.5 h-1.5 w-1.5 bg-primary rounded-full shrink-0" />
                     {t}
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
             </div>
           </div>
         </AnimatedSection>
 
         <AnimatedSection variants={slideInRightVariants}>
           <div>
-            <div className="rounded-xl border border-border bg-card p-8 hover-lift">
+            <TiltCard className="rounded-xl border border-border bg-card p-8">
               <h3 className="heading-xl text-2xl">Technical Toolkit</h3>
               <p className="text-sm text-muted-foreground mt-2">
                 Tools and disciplines I use day to day.
               </p>
-              <div className="mt-6 flex flex-wrap gap-2">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
+                }}
+                className="mt-6 flex flex-wrap gap-2"
+              >
                 {skills.map((s) => (
-                  <span
+                  <motion.span
                     key={s}
+                    variants={{
+                      hidden: { opacity: 0, scale: 0.85, y: 8 },
+                      visible: {
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+                      },
+                    }}
+                    whileHover={{ scale: 1.08, y: -3 }}
                     className="px-4 py-2 rounded-full border border-border text-sm font-medium uppercase tracking-wider hover:border-primary hover:text-primary transition-colors cursor-default"
                   >
                     {s}
-                  </span>
+                  </motion.span>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </TiltCard>
 
             <motion.div
               whileHover={{ scale: 1.01 }}

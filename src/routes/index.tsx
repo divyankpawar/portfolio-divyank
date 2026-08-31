@@ -1,11 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import heroImg from "@/assets/hero.jpg";
 import {
   AnimatedHero,
   AnimatedItem,
   AnimatedSection,
   AnimatedStagger,
+  AnimatedWords,
+  Counter,
+  Marquee,
+  RevealLine,
+  TiltCard,
   slideInLeftVariants,
   slideInRightVariants,
   scaleUpVariants,

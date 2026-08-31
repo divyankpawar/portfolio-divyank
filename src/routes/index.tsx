@@ -127,6 +127,10 @@ function Hero() {
           height={1080}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-background/20" />
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-x-0 h-40 bg-gradient-to-b from-transparent via-primary/10 to-transparent animate-scanline" />
+        </div>
+
       </div>
       <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
         <AnimatedHero>

@@ -242,17 +242,29 @@ function Hero() {
                 ["CAD", "PTC Creo"],
                 ["1+", "Years Experience"],
               ].map(([k, v]) => (
-                <AnimatedItem key={v} className="border-l-2 border-primary pl-4">
-                  <div className="heading-xl text-3xl">{k}</div>
-                  <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">
-                    {v}
-                  </div>
+                <AnimatedItem key={v}>
+                  <motion.div
+                    whileHover={{ x: 6 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="border-l-2 border-primary pl-4"
+                  >
+                    <div className="heading-xl text-3xl">
+                      {v === "Years Experience" ? (
+                        <Counter value={1} suffix="+" />
+                      ) : (
+                        k
+                      )}
+                    </div>
+                    <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">
+                      {v}
+                    </div>
+                  </motion.div>
                 </AnimatedItem>
               ))}
             </AnimatedStagger>
           </AnimatedItem>
         </AnimatedHero>
-      </div>
+      </motion.div>
     </section>
   );
 }

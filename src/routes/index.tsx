@@ -303,8 +303,9 @@ function Services() {
                 <span className="h-px w-8 bg-primary" /> What I Do
               </span>
               <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
-                Areas of <span className="text-primary">Expertise</span>
+                <AnimatedWords text="Areas of Expertise" highlight={["Expertise"]} />
               </h2>
+              <RevealLine className="mt-6 max-w-xs" />
             </div>
             <p className="max-w-md text-muted-foreground">
               Combining field inspection experience with design engineering to keep

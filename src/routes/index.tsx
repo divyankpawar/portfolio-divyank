@@ -29,9 +29,34 @@ export const Route = createFileRoute("/")({
   component: Portfolio,
 });
 
+function BackgroundFX() {
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      {/* drifting technical grid */}
+      <div className="absolute inset-[-10%] bg-tech-grid opacity-[0.35] animate-grid-drift" />
+      {/* ambient glows */}
+      <div className="absolute -top-40 -left-32 h-[38rem] w-[38rem] rounded-full bg-primary/15 blur-[120px] animate-float-blob" />
+      <div
+        className="absolute top-1/3 -right-40 h-[34rem] w-[34rem] rounded-full bg-primary/10 blur-[130px] animate-float-blob"
+        style={{ animationDelay: "-6s", animationDuration: "24s" }}
+      />
+      <div
+        className="absolute bottom-0 left-1/3 h-[30rem] w-[30rem] rounded-full bg-foreground/5 blur-[120px] animate-float-blob"
+        style={{ animationDelay: "-12s", animationDuration: "30s" }}
+      />
+      {/* slow rotating gear outlines */}
+      <Cog className="absolute -left-24 top-1/4 h-72 w-72 text-primary/[0.06] animate-spin-slow" />
+      <Cog className="absolute -right-28 bottom-24 h-96 w-96 text-primary/[0.05] animate-spin-slow-reverse" />
+      {/* vignette so content stays readable */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background" />
+    </div>
+  );
+}
+
 function Portfolio() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="relative min-h-screen bg-background text-foreground">
+      <BackgroundFX />
       <Nav />
       <Hero />
       <Services />
@@ -44,6 +69,7 @@ function Portfolio() {
     </div>
   );
 }
+
 
 function Nav() {
   const items = [
@@ -101,6 +127,10 @@ function Hero() {
           height={1080}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-background/20" />
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-x-0 h-40 bg-gradient-to-b from-transparent via-primary/10 to-transparent animate-scanline" />
+        </div>
+
       </div>
       <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
         <AnimatedHero>

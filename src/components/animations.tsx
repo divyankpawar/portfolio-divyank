@@ -155,3 +155,159 @@ export function AnimatedHero({
     </motion.div>
   );
 }
+
+/* ---------- extra motion primitives ---------- */
+
+export function RevealLine({ className = "" }: { className?: string }) {
+  return (
+    <motion.span
+      initial={{ scaleX: 0 }}
+      whileInView={{ scaleX: 1 }}
+      viewport={{ once: true, amount: 0.6 }}
+      transition={{ duration: 0.8, ease: heavyEase }}
+      className={`block h-px w-full origin-left bg-gradient-to-r from-primary via-primary/40 to-transparent ${className}`}
+    />
+  );
+}
+
+export function AnimatedWords({
+  text,
+  className = "",
+  highlight = [],
+  delay = 0,
+}: {
+  text: string;
+  className?: string;
+  highlight?: string[];
+  delay?: number;
+}) {
+  const words = text.split(" ");
+  return (
+    <motion.span
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.4 }}
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: 0.05, delayChildren: delay } },
+      }}
+      className={className}
+    >
+      {words.map((w, i) => (
+        <motion.span
+          key={`${w}-${i}`}
+          variants={{
+            hidden: { opacity: 0, y: "0.4em", rotateX: -40 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              rotateX: 0,
+              transition: { duration: 0.55, ease: heavyEase },
+            },
+          }}
+          className={`inline-block ${highlight.includes(w) ? "text-primary" : ""}`}
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          {w}
+          {i < words.length - 1 ? "\u00A0" : ""}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+}
+
+export function Counter({
+  value,
+  suffix = "",
+  prefix = "",
+  duration = 1.4,
+  className = "",
+}: {
+  value: number;
+  suffix?: string;
+  prefix?: string;
+  duration?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.6 });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplay(value);
+      return;
+    }
+    let raf = 0;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setDisplay(Math.round(eased * value));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, value, duration]);
+
+  return (
+    <span ref={ref} className={className}>
+      {prefix}
+      {display}
+      {suffix}
+    </span>
+  );
+}
+
+export function TiltCard({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      whileHover={{ y: -6, rotateX: 3, rotateY: -3, scale: 1.015 }}
+      transition={{ duration: 0.35, ease: heavyEase }}
+      style={{ transformStyle: "preserve-3d", perspective: 800 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function Marquee({
+  items,
+  speed = 28,
+  reverse = false,
+}: {
+  items: string[];
+  speed?: number;
+  reverse?: boolean;
+}) {
+  const loop = [...items, ...items];
+  return (
+    <div className="relative overflow-hidden py-4">
+      <motion.div
+        className="flex w-max gap-10 whitespace-nowrap"
+        animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
+        transition={{ duration: speed, ease: "linear", repeat: Infinity }}
+      >
+        {loop.map((it, i) => (
+          <span
+            key={`${it}-${i}`}
+            className="heading-xl text-2xl md:text-3xl uppercase tracking-widest text-muted-foreground/40"
+          >
+            {it}
+            <span className="ml-10 text-primary">/</span>
+          </span>
+        ))}
+      </motion.div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent" />
+    </div>
+  );
+}

@@ -1,4 +1,4 @@
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useInView, type Variants, type Transition } from "framer-motion";
 
 const heavyEase: Transition["ease"] = [0.22, 1, 0.36, 1];

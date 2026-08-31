@@ -97,6 +97,8 @@ function Nav() {
     { href: "#about", label: "About" },
     { href: "#contact", label: "Contact" },
   ];
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25, mass: 0.3 });
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -106,30 +108,46 @@ function Nav() {
     >
       <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2 group">
-          <span className="grid place-items-center h-9 w-9 rounded-md bg-primary text-primary-foreground transition-transform duration-300 group-hover:rotate-90">
+          <motion.span
+            whileHover={{ rotate: 90 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="grid place-items-center h-9 w-9 rounded-md bg-primary text-primary-foreground"
+          >
             <Cog className="h-5 w-5" />
-          </span>
+          </motion.span>
           <span className="heading-xl text-xl tracking-widest">DIVYANK.P</span>
         </a>
         <nav className="hidden md:flex items-center gap-1">
-          {items.map((i) => (
-            <a
+          {items.map((i, idx) => (
+            <motion.a
               key={i.href}
               href={i.href}
-              className="px-4 py-2 text-sm font-medium uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors mechanical-hover"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + idx * 0.06, duration: 0.4 }}
+              whileHover={{ y: -2 }}
+              className="relative px-4 py-2 text-sm font-medium uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors group"
             >
               {i.label}
-            </a>
+              <span className="absolute inset-x-3 bottom-1 h-px origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />
+            </motion.a>
           ))}
         </nav>
-        <a
+        <motion.a
           href="#contact"
-          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-primary-foreground hover:opacity-90 transition hover-lift"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.96 }}
+          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-primary-foreground"
         >
           Hire Me
-        </a>
+        </motion.a>
       </div>
+      <motion.div
+        style={{ scaleX: progress }}
+        className="absolute bottom-0 left-0 h-0.5 w-full origin-left bg-primary"
+      />
     </motion.header>
+
   );
 }
 

@@ -65,7 +65,20 @@ function Portfolio() {
       <Nav />
       <Hero />
       <Services />
+      <section className="border-b border-border bg-card/20">
+        <Marquee
+          items={[
+            "Inspection",
+            "CAD Design",
+            "PTC Creo",
+            "Pipeline Integrity",
+            "Conveyor Systems",
+            "Safety Compliance",
+          ]}
+        />
+      </section>
       <About />
+
       <Experience />
       <Education />
       <Extracurricular />

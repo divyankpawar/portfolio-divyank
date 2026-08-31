@@ -144,3 +144,50 @@
 @utility animate-scanline {
   animation: scanline 6s linear infinite;
 }
+
+@keyframes float-blob {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(4%, -6%, 0) scale(1.08); }
+  66% { transform: translate3d(-5%, 4%, 0) scale(0.95); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-slow-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@utility animate-float-blob {
+  animation: float-blob 18s ease-in-out infinite;
+}
+
+@utility animate-spin-slow {
+  animation: spin-slow 40s linear infinite;
+}
+
+@utility animate-spin-slow-reverse {
+  animation: spin-slow-reverse 55s linear infinite;
+}
+
+@utility bg-tech-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, var(--color-border) 70%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--color-border) 70%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-blob,
+  .animate-spin-slow,
+  .animate-spin-slow-reverse,
+  .animate-grid-drift,
+  .animate-scanline,
+  .animate-pulse-glow {
+    animation: none !important;
+  }
+}
+

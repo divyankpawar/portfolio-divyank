@@ -325,13 +325,34 @@ function Services() {
         >
           {items.map(({ icon: Icon, title, desc }) => (
             <AnimatedItem key={title}>
-              <div className="bg-card p-8 h-full group hover:bg-primary hover:text-primary-foreground transition-colors hover-lift">
-                <Icon className="h-10 w-10 text-primary group-hover:text-primary-foreground transition-transform duration-300 group-hover:scale-110" />
-                <h3 className="heading-xl mt-6 text-2xl">{title}</h3>
+              <motion.div
+                whileHover="hover"
+                initial="rest"
+                animate="rest"
+                className="relative bg-card p-8 h-full group hover:bg-primary hover:text-primary-foreground transition-colors overflow-hidden"
+              >
+                <motion.span
+                  variants={{ rest: { scaleY: 0 }, hover: { scaleY: 1 } }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute left-0 top-0 h-full w-1 origin-bottom bg-primary-foreground/60"
+                />
+                <motion.div
+                  variants={{ rest: { rotate: 0, scale: 1 }, hover: { rotate: 12, scale: 1.12 } }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <Icon className="h-10 w-10 text-primary group-hover:text-primary-foreground" />
+                </motion.div>
+                <motion.h3
+                  variants={{ rest: { y: 0 }, hover: { y: -4 } }}
+                  transition={{ duration: 0.35 }}
+                  className="heading-xl mt-6 text-2xl"
+                >
+                  {title}
+                </motion.h3>
                 <p className="mt-3 text-sm text-muted-foreground group-hover:text-primary-foreground/80">
                   {desc}
                 </p>
-              </div>
+              </motion.div>
             </AnimatedItem>
           ))}
         </AnimatedStagger>

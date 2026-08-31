@@ -152,12 +152,26 @@ function Nav() {
 }
 
 function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.18]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   return (
-    <section id="home" className="relative overflow-hidden border-b border-border">
+    <section
+      id="home"
+      ref={ref}
+      className="relative overflow-hidden border-b border-border"
+    >
       <div className="absolute inset-0">
-        <img
+        <motion.img
           src={heroImg}
           alt="Industrial mechanical engineering workshop"
+          style={{ y: imgY, scale: imgScale }}
           className="h-full w-full object-cover opacity-40"
           width={1920}
           height={1080}
@@ -166,8 +180,8 @@ function Hero() {
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-x-0 h-40 bg-gradient-to-b from-transparent via-primary/10 to-transparent animate-scanline" />
         </div>
-
       </div>
+
       <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
         <AnimatedHero>
           <AnimatedItem>

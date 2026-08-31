@@ -1,11 +1,17 @@
+import { useRef } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import heroImg from "@/assets/hero.jpg";
 import {
   AnimatedHero,
   AnimatedItem,
   AnimatedSection,
   AnimatedStagger,
+  AnimatedWords,
+  Counter,
+  Marquee,
+  RevealLine,
+  TiltCard,
   slideInLeftVariants,
   slideInRightVariants,
   scaleUpVariants,
@@ -60,7 +66,20 @@ function Portfolio() {
       <Nav />
       <Hero />
       <Services />
+      <section className="border-b border-border bg-card/20">
+        <Marquee
+          items={[
+            "Inspection",
+            "CAD Design",
+            "PTC Creo",
+            "Pipeline Integrity",
+            "Conveyor Systems",
+            "Safety Compliance",
+          ]}
+        />
+      </section>
       <About />
+
       <Experience />
       <Education />
       <Extracurricular />
@@ -79,6 +98,8 @@ function Nav() {
     { href: "#about", label: "About" },
     { href: "#contact", label: "Contact" },
   ];
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25, mass: 0.3 });
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -88,40 +109,70 @@ function Nav() {
     >
       <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2 group">
-          <span className="grid place-items-center h-9 w-9 rounded-md bg-primary text-primary-foreground transition-transform duration-300 group-hover:rotate-90">
+          <motion.span
+            whileHover={{ rotate: 90 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="grid place-items-center h-9 w-9 rounded-md bg-primary text-primary-foreground"
+          >
             <Cog className="h-5 w-5" />
-          </span>
+          </motion.span>
           <span className="heading-xl text-xl tracking-widest">DIVYANK.P</span>
         </a>
         <nav className="hidden md:flex items-center gap-1">
-          {items.map((i) => (
-            <a
+          {items.map((i, idx) => (
+            <motion.a
               key={i.href}
               href={i.href}
-              className="px-4 py-2 text-sm font-medium uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors mechanical-hover"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + idx * 0.06, duration: 0.4 }}
+              whileHover={{ y: -2 }}
+              className="relative px-4 py-2 text-sm font-medium uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors group"
             >
               {i.label}
-            </a>
+              <span className="absolute inset-x-3 bottom-1 h-px origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />
+            </motion.a>
           ))}
         </nav>
-        <a
+        <motion.a
           href="#contact"
-          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-primary-foreground hover:opacity-90 transition hover-lift"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.96 }}
+          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-primary-foreground"
         >
           Hire Me
-        </a>
+        </motion.a>
       </div>
+      <motion.div
+        style={{ scaleX: progress }}
+        className="absolute bottom-0 left-0 h-0.5 w-full origin-left bg-primary"
+      />
     </motion.header>
+
   );
 }
 
 function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.18]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   return (
-    <section id="home" className="relative overflow-hidden border-b border-border">
+    <section
+      id="home"
+      ref={ref}
+      className="relative overflow-hidden border-b border-border"
+    >
       <div className="absolute inset-0">
-        <img
+        <motion.img
           src={heroImg}
           alt="Industrial mechanical engineering workshop"
+          style={{ y: imgY, scale: imgScale }}
           className="h-full w-full object-cover opacity-40"
           width={1920}
           height={1080}
@@ -130,9 +181,12 @@ function Hero() {
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-x-0 h-40 bg-gradient-to-b from-transparent via-primary/10 to-transparent animate-scanline" />
         </div>
-
       </div>
-      <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-40">
+
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative mx-auto max-w-7xl px-6 py-28 md:py-40"
+      >
         <AnimatedHero>
           <AnimatedItem>
             <span className="section-label">
@@ -189,17 +243,29 @@ function Hero() {
                 ["CAD", "PTC Creo"],
                 ["1+", "Years Experience"],
               ].map(([k, v]) => (
-                <AnimatedItem key={v} className="border-l-2 border-primary pl-4">
-                  <div className="heading-xl text-3xl">{k}</div>
-                  <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">
-                    {v}
-                  </div>
+                <AnimatedItem key={v}>
+                  <motion.div
+                    whileHover={{ x: 6 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="border-l-2 border-primary pl-4"
+                  >
+                    <div className="heading-xl text-3xl">
+                      {v === "Years Experience" ? (
+                        <Counter value={1} suffix="+" />
+                      ) : (
+                        k
+                      )}
+                    </div>
+                    <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">
+                      {v}
+                    </div>
+                  </motion.div>
                 </AnimatedItem>
               ))}
             </AnimatedStagger>
           </AnimatedItem>
         </AnimatedHero>
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -237,8 +303,9 @@ function Services() {
                 <span className="h-px w-8 bg-primary" /> What I Do
               </span>
               <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
-                Areas of <span className="text-primary">Expertise</span>
+                <AnimatedWords text="Areas of Expertise" highlight={["Expertise"]} />
               </h2>
+              <RevealLine className="mt-6 max-w-xs" />
             </div>
             <p className="max-w-md text-muted-foreground">
               Combining field inspection experience with design engineering to keep
@@ -258,13 +325,34 @@ function Services() {
         >
           {items.map(({ icon: Icon, title, desc }) => (
             <AnimatedItem key={title}>
-              <div className="bg-card p-8 h-full group hover:bg-primary hover:text-primary-foreground transition-colors hover-lift">
-                <Icon className="h-10 w-10 text-primary group-hover:text-primary-foreground transition-transform duration-300 group-hover:scale-110" />
-                <h3 className="heading-xl mt-6 text-2xl">{title}</h3>
+              <motion.div
+                whileHover="hover"
+                initial="rest"
+                animate="rest"
+                className="relative bg-card p-8 h-full group hover:bg-primary hover:text-primary-foreground transition-colors overflow-hidden"
+              >
+                <motion.span
+                  variants={{ rest: { scaleY: 0 }, hover: { scaleY: 1 } }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute left-0 top-0 h-full w-1 origin-bottom bg-primary-foreground/60"
+                />
+                <motion.div
+                  variants={{ rest: { rotate: 0, scale: 1 }, hover: { rotate: 12, scale: 1.12 } }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <Icon className="h-10 w-10 text-primary group-hover:text-primary-foreground" />
+                </motion.div>
+                <motion.h3
+                  variants={{ rest: { y: 0 }, hover: { y: -4 } }}
+                  transition={{ duration: 0.35 }}
+                  className="heading-xl mt-6 text-2xl"
+                >
+                  {title}
+                </motion.h3>
                 <p className="mt-3 text-sm text-muted-foreground group-hover:text-primary-foreground/80">
                   {desc}
                 </p>
-              </div>
+              </motion.div>
             </AnimatedItem>
           ))}
         </AnimatedStagger>
@@ -301,9 +389,12 @@ function About() {
               <span className="h-px w-8 bg-primary" /> About
             </span>
             <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
-              Grounded in <span className="text-primary">theory</span>, sharpened on the{" "}
-              <span className="text-primary">shop floor.</span>
+              <AnimatedWords
+                text="Grounded in theory, sharpened on the shop floor."
+                highlight={["theory,", "shop", "floor."]}
+              />
             </h2>
+            <RevealLine className="mt-6 max-w-sm" />
             <p className="mt-6 text-muted-foreground text-lg">
               I graduated in Mechanical Engineering from Terna Engineering College, Navi
               Mumbai. Over the past few years, I've moved from designing conveyor systems
@@ -315,36 +406,76 @@ function About() {
               <h3 className="heading-xl text-xl text-primary tracking-widest">
                 Key Competencies
               </h3>
-              <ul className="mt-4 grid sm:grid-cols-2 gap-y-2 gap-x-6 text-sm">
+              <motion.ul
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.07 } },
+                }}
+                className="mt-4 grid sm:grid-cols-2 gap-y-2 gap-x-6 text-sm"
+              >
                 {traits.map((t) => (
-                  <li key={t} className="flex items-start gap-2 text-muted-foreground">
+                  <motion.li
+                    key={t}
+                    variants={{
+                      hidden: { opacity: 0, x: -16 },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                      },
+                    }}
+                    whileHover={{ x: 4, color: "var(--color-foreground)" }}
+                    className="flex items-start gap-2 text-muted-foreground"
+                  >
                     <span className="mt-1.5 h-1.5 w-1.5 bg-primary rounded-full shrink-0" />
                     {t}
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
             </div>
           </div>
         </AnimatedSection>
 
         <AnimatedSection variants={slideInRightVariants}>
           <div>
-            <div className="rounded-xl border border-border bg-card p-8 hover-lift">
+            <TiltCard className="rounded-xl border border-border bg-card p-8">
               <h3 className="heading-xl text-2xl">Technical Toolkit</h3>
               <p className="text-sm text-muted-foreground mt-2">
                 Tools and disciplines I use day to day.
               </p>
-              <div className="mt-6 flex flex-wrap gap-2">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
+                }}
+                className="mt-6 flex flex-wrap gap-2"
+              >
                 {skills.map((s) => (
-                  <span
+                  <motion.span
                     key={s}
+                    variants={{
+                      hidden: { opacity: 0, scale: 0.85, y: 8 },
+                      visible: {
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+                      },
+                    }}
+                    whileHover={{ scale: 1.08, y: -3 }}
                     className="px-4 py-2 rounded-full border border-border text-sm font-medium uppercase tracking-wider hover:border-primary hover:text-primary transition-colors cursor-default"
                   >
                     {s}
-                  </span>
+                  </motion.span>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </TiltCard>
 
             <motion.div
               whileHover={{ scale: 1.01 }}

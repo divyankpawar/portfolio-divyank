@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import heroImg from "@/assets/hero.jpg";
+import profileImg from "@/assets/profile.jpg.asset.json";
+
 import {
   AnimatedHero,
   AnimatedItem,

@@ -441,7 +441,28 @@ function About() {
 
         <AnimatedSection variants={slideInRightVariants}>
           <div>
+            <motion.div
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mb-6 overflow-hidden rounded-xl border border-border bg-card"
+            >
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,color-mix(in_oklab,var(--color-background)_85%,transparent)_100%)] z-10 pointer-events-none" />
+              <div className="absolute left-4 top-4 z-20 section-label">
+                <span className="h-px w-8 bg-primary" /> Divyank
+              </div>
+              <motion.img
+                src={profileImg.url}
+                alt="Portrait of Divyank, Project Associate-I at IIT Bombay"
+                loading="lazy"
+                initial={{ scale: 1.08, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full h-[420px] object-cover object-top grayscale hover:grayscale-0 transition-[filter] duration-700"
+              />
+            </motion.div>
             <TiltCard className="rounded-xl border border-border bg-card p-8">
+
               <h3 className="heading-xl text-2xl">Technical Toolkit</h3>
               <p className="text-sm text-muted-foreground mt-2">
                 Tools and disciplines I use day to day.

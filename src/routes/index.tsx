@@ -505,16 +505,28 @@ function About() {
 function Experience() {
   const jobs = [
     {
-      period: "Dec 2025 — Present",
+      period: "Present",
+      role: "Project Associate-I",
+      org: "ANRF-PAIR Project | IIT Bombay",
+      points: [
+        "Contributing to the effective execution of administrative functions while working closely with senior administrative personnel.",
+        "Developing an understanding of the technical and academic dimensions of multidisciplinary research sub-projects.",
+        "Strengthening exposure to research administration and institutional coordination.",
+        "Supporting day-to-day project management across the programme.",
+      ],
+    },
+    {
+      period: "Dec 2025 — 2026",
       role: "Inspection Department Intern",
       org: "Bharat Petroleum Corporation Limited (BPCL)",
       points: [
-        "Contribute to equipment integrity assessments across the plant.",
+        "Contributed to equipment integrity assessments across the plant.",
         "Inspection of pipelines and critical rotating and static machinery.",
         "Adherence to stringent refinery safety and compliance standards.",
         "Hands-on SAP: ID creation and maintenance data management for inspection workflows.",
       ],
     },
+
     {
       period: "Jan 2023 — Jan 2024",
       role: "Design & Production Engineer",

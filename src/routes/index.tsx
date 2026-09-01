@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "framer-motion";
 import heroImg from "@/assets/hero.jpg";
 import profileImg from "@/assets/profile.jpg.asset.json";
 
@@ -31,6 +31,8 @@ import {
   Briefcase,
   Trophy,
   MapPin,
+  Menu,
+  X,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -63,7 +65,7 @@ function BackgroundFX() {
 
 function Portfolio() {
   return (
-    <div className="relative min-h-screen bg-background text-foreground">
+    <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
       <BackgroundFX />
       <Nav />
       <Hero />

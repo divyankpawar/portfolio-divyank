@@ -100,6 +100,7 @@ function Nav() {
     { href: "#about", label: "About" },
     { href: "#contact", label: "Contact" },
   ];
+  const [open, setOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25, mass: 0.3 });
   return (
@@ -118,7 +119,7 @@ function Nav() {
           >
             <Cog className="h-5 w-5" />
           </motion.span>
-          <span className="heading-xl text-xl tracking-widest">DIVYANK.P</span>
+          <span className="heading-xl text-lg sm:text-xl tracking-widest">DIVYANK.P</span>
         </a>
         <nav className="hidden md:flex items-center gap-1">
           {items.map((i, idx) => (
@@ -136,23 +137,67 @@ function Nav() {
             </motion.a>
           ))}
         </nav>
-        <motion.a
-          href="#contact"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.96 }}
-          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-primary-foreground"
-        >
-          Hire Me
-        </motion.a>
+        <div className="flex items-center gap-2">
+          <motion.a
+            href="#contact"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.96 }}
+            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-primary-foreground"
+          >
+            Hire Me
+          </motion.a>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className="md:hidden grid place-items-center h-11 w-11 -mr-2 rounded-md border border-border text-foreground"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="md:hidden overflow-hidden border-t border-border bg-background/95"
+          >
+            <div className="px-5 py-3 flex flex-col">
+              {items.map((i) => (
+                <a
+                  key={i.href}
+                  href={i.href}
+                  onClick={() => setOpen(false)}
+                  className="py-3 text-sm font-semibold uppercase tracking-widest text-muted-foreground hover:text-primary border-b border-border/60 last:border-0"
+                >
+                  {i.label}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="mt-4 mb-2 inline-flex justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground"
+              >
+                Hire Me
+              </a>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+
       <motion.div
         style={{ scaleX: progress }}
         className="absolute bottom-0 left-0 h-0.5 w-full origin-left bg-primary"
       />
     </motion.header>
-
   );
 }
+
 
 function Hero() {
   const ref = useRef<HTMLElement>(null);

@@ -385,7 +385,7 @@ function About() {
   ];
   return (
     <section id="about" className="border-b border-border bg-card/40">
-      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24 grid lg:grid-cols-2 gap-16">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24 grid lg:grid-cols-2 gap-10 lg:gap-16">
         <AnimatedSection variants={slideInLeftVariants}>
           <div>
             <span className="section-label">

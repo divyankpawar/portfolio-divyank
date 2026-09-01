@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "framer-motion";
 import heroImg from "@/assets/hero.jpg";
 import profileImg from "@/assets/profile.jpg.asset.json";
 
@@ -31,6 +31,8 @@ import {
   Briefcase,
   Trophy,
   MapPin,
+  Menu,
+  X,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -63,7 +65,7 @@ function BackgroundFX() {
 
 function Portfolio() {
   return (
-    <div className="relative min-h-screen bg-background text-foreground">
+    <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
       <BackgroundFX />
       <Nav />
       <Hero />
@@ -100,6 +102,7 @@ function Nav() {
     { href: "#about", label: "About" },
     { href: "#contact", label: "Contact" },
   ];
+  const [open, setOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 25, mass: 0.3 });
   return (
@@ -109,7 +112,7 @@ function Nav() {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="sticky top-0 z-50 bg-background/85 backdrop-blur border-b border-border"
     >
-      <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2 group">
           <motion.span
             whileHover={{ rotate: 90 }}
@@ -118,7 +121,7 @@ function Nav() {
           >
             <Cog className="h-5 w-5" />
           </motion.span>
-          <span className="heading-xl text-xl tracking-widest">DIVYANK.P</span>
+          <span className="heading-xl text-lg sm:text-xl tracking-widest">DIVYANK.P</span>
         </a>
         <nav className="hidden md:flex items-center gap-1">
           {items.map((i, idx) => (
@@ -136,23 +139,67 @@ function Nav() {
             </motion.a>
           ))}
         </nav>
-        <motion.a
-          href="#contact"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.96 }}
-          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-primary-foreground"
-        >
-          Hire Me
-        </motion.a>
+        <div className="flex items-center gap-2">
+          <motion.a
+            href="#contact"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.96 }}
+            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold uppercase tracking-wider text-primary-foreground"
+          >
+            Hire Me
+          </motion.a>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className="md:hidden grid place-items-center h-11 w-11 -mr-2 rounded-md border border-border text-foreground"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="md:hidden overflow-hidden border-t border-border bg-background/95"
+          >
+            <div className="px-5 py-3 flex flex-col">
+              {items.map((i) => (
+                <a
+                  key={i.href}
+                  href={i.href}
+                  onClick={() => setOpen(false)}
+                  className="py-3 text-sm font-semibold uppercase tracking-widest text-muted-foreground hover:text-primary border-b border-border/60 last:border-0"
+                >
+                  {i.label}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="mt-4 mb-2 inline-flex justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground"
+              >
+                Hire Me
+              </a>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+
       <motion.div
         style={{ scaleX: progress }}
         className="absolute bottom-0 left-0 h-0.5 w-full origin-left bg-primary"
       />
     </motion.header>
-
   );
 }
+
 
 function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -187,7 +234,7 @@ function Hero() {
 
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="relative mx-auto max-w-7xl px-6 py-28 md:py-40"
+        className="relative mx-auto max-w-7xl px-5 sm:px-6 py-20 sm:py-28 md:py-40"
       >
         <AnimatedHero>
           <AnimatedItem>
@@ -197,12 +244,12 @@ function Hero() {
             </span>
           </AnimatedItem>
           <AnimatedItem>
-            <h1 className="heading-xl mt-6 text-5xl sm:text-7xl md:text-8xl max-w-4xl">
+            <h1 className="heading-xl mt-5 sm:mt-6 text-[2.6rem] leading-[0.95] sm:text-7xl md:text-8xl max-w-4xl">
               Engineering Precision, <span className="text-primary">Built to Last.</span>
             </h1>
           </AnimatedItem>
           <AnimatedItem>
-            <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+            <p className="mt-5 sm:mt-6 max-w-xl text-base sm:text-lg text-muted-foreground">
               I'm <strong className="text-foreground">Divyank K Pawar</strong> — a mechanical
               engineer focused on inspection, CAD design, and industrial systems. Currently
               Project Associate-I on the ANRF-PAIR Project at IIT Bombay.
@@ -210,7 +257,7 @@ function Hero() {
             </p>
           </AnimatedItem>
           <AnimatedItem>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+            <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-3 sm:gap-4">
               <a
                 href="#contact"
                 className="inline-flex items-center gap-3 rounded-full bg-primary pl-6 pr-2 py-2 text-sm font-semibold uppercase tracking-wider text-primary-foreground hover:opacity-90 transition hover-lift"
@@ -229,9 +276,9 @@ function Hero() {
             </div>
           </AnimatedItem>
 
-          <AnimatedItem className="mt-20">
+          <AnimatedItem className="mt-14 sm:mt-20">
             <AnimatedStagger
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl"
+              className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 max-w-3xl"
               containerVariants={{
                 hidden: { opacity: 1 },
                 visible: {
@@ -252,7 +299,7 @@ function Hero() {
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="border-l-2 border-primary pl-4"
                   >
-                    <div className="heading-xl text-3xl">
+                    <div className="heading-xl text-2xl sm:text-3xl">
                       {v === "Years Experience" ? (
                         <Counter value={1} suffix="+" />
                       ) : (
@@ -298,14 +345,14 @@ function Services() {
   ];
   return (
     <section id="services" className="border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24">
         <AnimatedSection>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
             <div>
               <span className="section-label">
                 <span className="h-px w-8 bg-primary" /> What I Do
               </span>
-              <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+              <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl">
                 <AnimatedWords text="Areas of Expertise" highlight={["Expertise"]} />
               </h2>
               <RevealLine className="mt-6 max-w-xs" />
@@ -332,7 +379,7 @@ function Services() {
                 whileHover="hover"
                 initial="rest"
                 animate="rest"
-                className="relative bg-card p-8 h-full group hover:bg-primary hover:text-primary-foreground transition-colors overflow-hidden"
+                className="relative bg-card p-6 sm:p-8 h-full group hover:bg-primary hover:text-primary-foreground transition-colors overflow-hidden"
               >
                 <motion.span
                   variants={{ rest: { scaleY: 0 }, hover: { scaleY: 1 } }}
@@ -385,13 +432,13 @@ function About() {
   ];
   return (
     <section id="about" className="border-b border-border bg-card/40">
-      <div className="mx-auto max-w-7xl px-6 py-24 grid lg:grid-cols-2 gap-16">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24 grid lg:grid-cols-2 gap-10 lg:gap-16">
         <AnimatedSection variants={slideInLeftVariants}>
           <div>
             <span className="section-label">
               <span className="h-px w-8 bg-primary" /> About
             </span>
-            <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+            <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl">
               <AnimatedWords
                 text="Grounded in theory, sharpened on the shop floor."
                 highlight={["theory,", "shop", "floor."]}
@@ -461,10 +508,10 @@ function About() {
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full h-[420px] object-cover object-top grayscale hover:grayscale-0 transition-[filter] duration-700"
+                className="w-full h-80 sm:h-[420px] object-cover object-top grayscale hover:grayscale-0 transition-[filter] duration-700"
               />
             </motion.div>
-            <TiltCard className="rounded-xl border border-border bg-card p-8">
+            <TiltCard className="rounded-xl border border-border bg-card p-6 sm:p-8">
 
               <h3 className="heading-xl text-2xl">Technical Toolkit</h3>
               <p className="text-sm text-muted-foreground mt-2">
@@ -504,7 +551,7 @@ function About() {
             <motion.div
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-6 rounded-xl border border-border bg-primary text-primary-foreground p-8"
+              className="mt-6 rounded-xl border border-border bg-primary text-primary-foreground p-6 sm:p-8"
             >
               <div className="flex items-start gap-4">
                 <Trophy className="h-8 w-8 shrink-0" />
@@ -564,12 +611,12 @@ function Experience() {
   ];
   return (
     <section id="experience" className="border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24">
         <AnimatedSection>
           <span className="section-label">
             <span className="h-px w-8 bg-primary" /> Experience
           </span>
-          <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl max-w-3xl">
+          <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl max-w-3xl">
             Where I've <span className="text-primary">worked</span>.
           </h2>
         </AnimatedSection>
@@ -586,7 +633,7 @@ function Experience() {
         >
           {jobs.map((j) => (
             <AnimatedItem key={j.role}>
-              <article className="grid md:grid-cols-[220px_1fr] gap-6 border border-border rounded-xl p-8 bg-card hover:border-primary transition-colors hover-lift">
+              <article className="grid md:grid-cols-[220px_1fr] gap-4 md:gap-6 border border-border rounded-xl p-6 sm:p-8 bg-card hover:border-primary transition-colors hover-lift">
                 <div>
                   <div className="text-xs uppercase tracking-widest text-primary font-semibold">
                     {j.period}
@@ -639,12 +686,12 @@ function Education() {
   ];
   return (
     <section id="education" className="border-b border-border bg-card/40">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24">
         <AnimatedSection>
           <span className="section-label">
             <span className="h-px w-8 bg-primary" /> Academics
           </span>
-          <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+          <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl">
             Educational <span className="text-primary">Background</span>
           </h2>
         </AnimatedSection>
@@ -691,14 +738,14 @@ function Extracurricular() {
   ];
   return (
     <section className="border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24">
         <AnimatedSection>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
             <div>
               <span className="section-label">
                 <span className="h-px w-8 bg-primary" /> Beyond Work
               </span>
-              <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+              <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl">
                 Leadership & <span className="text-primary">Sport</span>
               </h2>
             </div>
@@ -732,14 +779,14 @@ function Extracurricular() {
 function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24">
         <AnimatedSection variants={scaleUpVariants}>
-          <div className="rounded-2xl bg-primary text-primary-foreground p-10 md:p-16 grid md:grid-cols-[1.2fr_1fr] gap-10 items-center">
+          <div className="rounded-2xl bg-primary text-primary-foreground p-6 sm:p-10 md:p-16 grid md:grid-cols-[1.2fr_1fr] gap-10 items-center">
             <div>
               <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em]">
                 <span className="h-px w-8 bg-primary-foreground" /> Let's Connect
               </span>
-              <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+              <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl">
                 Looking for a mechanical engineer who ships?
               </h2>
               <p className="mt-4 text-primary-foreground/80 max-w-lg">
@@ -828,7 +875,7 @@ function ContactRow({
 function Footer() {
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto max-w-7xl px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs uppercase tracking-widest text-muted-foreground">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs uppercase tracking-widest text-muted-foreground">
         <div>© {new Date().getFullYear()} Divyank K Pawar</div>
         <div>Mechanical Engineer · Portfolio</div>
       </div>

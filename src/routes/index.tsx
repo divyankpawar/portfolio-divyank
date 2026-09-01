@@ -109,7 +109,7 @@ function Nav() {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="sticky top-0 z-50 bg-background/85 backdrop-blur border-b border-border"
     >
-      <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2 group">
           <motion.span
             whileHover={{ rotate: 90 }}
@@ -187,7 +187,7 @@ function Hero() {
 
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="relative mx-auto max-w-7xl px-6 py-28 md:py-40"
+        className="relative mx-auto max-w-7xl px-5 sm:px-6 py-20 sm:py-28 md:py-40"
       >
         <AnimatedHero>
           <AnimatedItem>
@@ -298,14 +298,14 @@ function Services() {
   ];
   return (
     <section id="services" className="border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24">
         <AnimatedSection>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
             <div>
               <span className="section-label">
                 <span className="h-px w-8 bg-primary" /> What I Do
               </span>
-              <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+              <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl">
                 <AnimatedWords text="Areas of Expertise" highlight={["Expertise"]} />
               </h2>
               <RevealLine className="mt-6 max-w-xs" />
@@ -332,7 +332,7 @@ function Services() {
                 whileHover="hover"
                 initial="rest"
                 animate="rest"
-                className="relative bg-card p-8 h-full group hover:bg-primary hover:text-primary-foreground transition-colors overflow-hidden"
+                className="relative bg-card p-6 sm:p-8 h-full group hover:bg-primary hover:text-primary-foreground transition-colors overflow-hidden"
               >
                 <motion.span
                   variants={{ rest: { scaleY: 0 }, hover: { scaleY: 1 } }}
@@ -385,13 +385,13 @@ function About() {
   ];
   return (
     <section id="about" className="border-b border-border bg-card/40">
-      <div className="mx-auto max-w-7xl px-6 py-24 grid lg:grid-cols-2 gap-16">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24 grid lg:grid-cols-2 gap-16">
         <AnimatedSection variants={slideInLeftVariants}>
           <div>
             <span className="section-label">
               <span className="h-px w-8 bg-primary" /> About
             </span>
-            <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+            <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl">
               <AnimatedWords
                 text="Grounded in theory, sharpened on the shop floor."
                 highlight={["theory,", "shop", "floor."]}
@@ -461,10 +461,10 @@ function About() {
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full h-[420px] object-cover object-top grayscale hover:grayscale-0 transition-[filter] duration-700"
+                className="w-full h-80 sm:h-[420px] object-cover object-top grayscale hover:grayscale-0 transition-[filter] duration-700"
               />
             </motion.div>
-            <TiltCard className="rounded-xl border border-border bg-card p-8">
+            <TiltCard className="rounded-xl border border-border bg-card p-6 sm:p-8">
 
               <h3 className="heading-xl text-2xl">Technical Toolkit</h3>
               <p className="text-sm text-muted-foreground mt-2">
@@ -504,7 +504,7 @@ function About() {
             <motion.div
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-6 rounded-xl border border-border bg-primary text-primary-foreground p-8"
+              className="mt-6 rounded-xl border border-border bg-primary text-primary-foreground p-6 sm:p-8"
             >
               <div className="flex items-start gap-4">
                 <Trophy className="h-8 w-8 shrink-0" />
@@ -564,12 +564,12 @@ function Experience() {
   ];
   return (
     <section id="experience" className="border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24">
         <AnimatedSection>
           <span className="section-label">
             <span className="h-px w-8 bg-primary" /> Experience
           </span>
-          <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl max-w-3xl">
+          <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl max-w-3xl">
             Where I've <span className="text-primary">worked</span>.
           </h2>
         </AnimatedSection>
@@ -586,7 +586,7 @@ function Experience() {
         >
           {jobs.map((j) => (
             <AnimatedItem key={j.role}>
-              <article className="grid md:grid-cols-[220px_1fr] gap-6 border border-border rounded-xl p-8 bg-card hover:border-primary transition-colors hover-lift">
+              <article className="grid md:grid-cols-[220px_1fr] gap-4 md:gap-6 border border-border rounded-xl p-6 sm:p-8 bg-card hover:border-primary transition-colors hover-lift">
                 <div>
                   <div className="text-xs uppercase tracking-widest text-primary font-semibold">
                     {j.period}
@@ -639,12 +639,12 @@ function Education() {
   ];
   return (
     <section id="education" className="border-b border-border bg-card/40">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24">
         <AnimatedSection>
           <span className="section-label">
             <span className="h-px w-8 bg-primary" /> Academics
           </span>
-          <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+          <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl">
             Educational <span className="text-primary">Background</span>
           </h2>
         </AnimatedSection>
@@ -691,14 +691,14 @@ function Extracurricular() {
   ];
   return (
     <section className="border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24">
         <AnimatedSection>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
             <div>
               <span className="section-label">
                 <span className="h-px w-8 bg-primary" /> Beyond Work
               </span>
-              <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+              <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl">
                 Leadership & <span className="text-primary">Sport</span>
               </h2>
             </div>
@@ -732,14 +732,14 @@ function Extracurricular() {
 function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-16 sm:py-24">
         <AnimatedSection variants={scaleUpVariants}>
-          <div className="rounded-2xl bg-primary text-primary-foreground p-10 md:p-16 grid md:grid-cols-[1.2fr_1fr] gap-10 items-center">
+          <div className="rounded-2xl bg-primary text-primary-foreground p-6 sm:p-10 md:p-16 grid md:grid-cols-[1.2fr_1fr] gap-10 items-center">
             <div>
               <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em]">
                 <span className="h-px w-8 bg-primary-foreground" /> Let's Connect
               </span>
-              <h2 className="heading-xl mt-4 text-4xl sm:text-5xl md:text-6xl">
+              <h2 className="heading-xl mt-4 text-3xl sm:text-5xl md:text-6xl">
                 Looking for a mechanical engineer who ships?
               </h2>
               <p className="mt-4 text-primary-foreground/80 max-w-lg">
@@ -828,7 +828,7 @@ function ContactRow({
 function Footer() {
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto max-w-7xl px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs uppercase tracking-widest text-muted-foreground">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs uppercase tracking-widest text-muted-foreground">
         <div>© {new Date().getFullYear()} Divyank K Pawar</div>
         <div>Mechanical Engineer · Portfolio</div>
       </div>

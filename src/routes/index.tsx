@@ -242,7 +242,7 @@ function Hero() {
             >
               {[
                 ["B.E.", "Mechanical Eng."],
-                ["BPCL", "Inspection Intern"],
+                ["IITB", "Project Associate-I"],
                 ["CAD", "PTC Creo"],
                 ["1+", "Years Experience"],
               ].map(([k, v]) => (

@@ -205,7 +205,8 @@ function Hero() {
             <p className="mt-6 max-w-xl text-lg text-muted-foreground">
               I'm <strong className="text-foreground">Divyank K Pawar</strong> — a mechanical
               engineer focused on inspection, CAD design, and industrial systems. Currently
-              interning in the Inspection Department at Bharat Petroleum Corporation Limited.
+              Project Associate-I on the ANRF-PAIR Project at IIT Bombay.
+
             </p>
           </AnimatedItem>
           <AnimatedItem>

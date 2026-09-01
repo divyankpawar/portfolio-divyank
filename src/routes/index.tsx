@@ -244,12 +244,12 @@ function Hero() {
             </span>
           </AnimatedItem>
           <AnimatedItem>
-            <h1 className="heading-xl mt-6 text-5xl sm:text-7xl md:text-8xl max-w-4xl">
+            <h1 className="heading-xl mt-5 sm:mt-6 text-[2.6rem] leading-[0.95] sm:text-7xl md:text-8xl max-w-4xl">
               Engineering Precision, <span className="text-primary">Built to Last.</span>
             </h1>
           </AnimatedItem>
           <AnimatedItem>
-            <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+            <p className="mt-5 sm:mt-6 max-w-xl text-base sm:text-lg text-muted-foreground">
               I'm <strong className="text-foreground">Divyank K Pawar</strong> — a mechanical
               engineer focused on inspection, CAD design, and industrial systems. Currently
               Project Associate-I on the ANRF-PAIR Project at IIT Bombay.
@@ -257,7 +257,7 @@ function Hero() {
             </p>
           </AnimatedItem>
           <AnimatedItem>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+            <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-3 sm:gap-4">
               <a
                 href="#contact"
                 className="inline-flex items-center gap-3 rounded-full bg-primary pl-6 pr-2 py-2 text-sm font-semibold uppercase tracking-wider text-primary-foreground hover:opacity-90 transition hover-lift"
@@ -276,9 +276,9 @@ function Hero() {
             </div>
           </AnimatedItem>
 
-          <AnimatedItem className="mt-20">
+          <AnimatedItem className="mt-14 sm:mt-20">
             <AnimatedStagger
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl"
+              className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 max-w-3xl"
               containerVariants={{
                 hidden: { opacity: 1 },
                 visible: {
@@ -299,7 +299,7 @@ function Hero() {
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="border-l-2 border-primary pl-4"
                   >
-                    <div className="heading-xl text-3xl">
+                    <div className="heading-xl text-2xl sm:text-3xl">
                       {v === "Years Experience" ? (
                         <Counter value={1} suffix="+" />
                       ) : (

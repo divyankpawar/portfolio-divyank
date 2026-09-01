@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import heroImg from "@/assets/hero.jpg";
+import profileImg from "@/assets/profile.jpg.asset.json";
+
 import {
   AnimatedHero,
   AnimatedItem,
@@ -203,7 +205,8 @@ function Hero() {
             <p className="mt-6 max-w-xl text-lg text-muted-foreground">
               I'm <strong className="text-foreground">Divyank K Pawar</strong> — a mechanical
               engineer focused on inspection, CAD design, and industrial systems. Currently
-              interning in the Inspection Department at Bharat Petroleum Corporation Limited.
+              Project Associate-I on the ANRF-PAIR Project at IIT Bombay.
+
             </p>
           </AnimatedItem>
           <AnimatedItem>
@@ -239,7 +242,7 @@ function Hero() {
             >
               {[
                 ["B.E.", "Mechanical Eng."],
-                ["BPCL", "Inspection Intern"],
+                ["IITB", "Project Associate-I"],
                 ["CAD", "PTC Creo"],
                 ["1+", "Years Experience"],
               ].map(([k, v]) => (
@@ -441,7 +444,28 @@ function About() {
 
         <AnimatedSection variants={slideInRightVariants}>
           <div>
+            <motion.div
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mb-6 overflow-hidden rounded-xl border border-border bg-card"
+            >
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,color-mix(in_oklab,var(--color-background)_85%,transparent)_100%)] z-10 pointer-events-none" />
+              <div className="absolute left-4 top-4 z-20 section-label">
+                <span className="h-px w-8 bg-primary" /> Divyank
+              </div>
+              <motion.img
+                src={profileImg.url}
+                alt="Portrait of Divyank, Project Associate-I at IIT Bombay"
+                loading="lazy"
+                initial={{ scale: 1.08, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full h-[420px] object-cover object-top grayscale hover:grayscale-0 transition-[filter] duration-700"
+              />
+            </motion.div>
             <TiltCard className="rounded-xl border border-border bg-card p-8">
+
               <h3 className="heading-xl text-2xl">Technical Toolkit</h3>
               <p className="text-sm text-muted-foreground mt-2">
                 Tools and disciplines I use day to day.
@@ -505,16 +529,28 @@ function About() {
 function Experience() {
   const jobs = [
     {
-      period: "Dec 2025 — Present",
+      period: "Present",
+      role: "Project Associate-I",
+      org: "ANRF-PAIR Project | IIT Bombay",
+      points: [
+        "Contributing to the effective execution of administrative functions while working closely with senior administrative personnel.",
+        "Developing an understanding of the technical and academic dimensions of multidisciplinary research sub-projects.",
+        "Strengthening exposure to research administration and institutional coordination.",
+        "Supporting day-to-day project management across the programme.",
+      ],
+    },
+    {
+      period: "Dec 2025 — 2026",
       role: "Inspection Department Intern",
       org: "Bharat Petroleum Corporation Limited (BPCL)",
       points: [
-        "Contribute to equipment integrity assessments across the plant.",
+        "Contributed to equipment integrity assessments across the plant.",
         "Inspection of pipelines and critical rotating and static machinery.",
         "Adherence to stringent refinery safety and compliance standards.",
         "Hands-on SAP: ID creation and maintenance data management for inspection workflows.",
       ],
     },
+
     {
       period: "Jan 2023 — Jan 2024",
       role: "Design & Production Engineer",

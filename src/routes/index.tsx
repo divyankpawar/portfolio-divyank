@@ -507,7 +507,7 @@ function About() {
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full h-80 sm:h-[420px] object-cover object-top"
+                className="w-full h-80 sm:h-[420px] object-cover object-center"
               />
             </motion.div>
             <TiltCard className="rounded-xl border border-border bg-card p-6 sm:p-8">
